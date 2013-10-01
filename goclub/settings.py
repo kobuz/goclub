@@ -123,6 +123,8 @@ INSTALLED_APPS = (
     'grappelli',
     'django.contrib.admin',
     'south',
+
+    'members',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
