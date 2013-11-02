@@ -22,6 +22,12 @@ class MeetingManager(models.Manager):
         today = timezone.now().date()
         return self.get_query_set().filter(date__gte=today).order_by('date')
 
+    def recent_players(self):
+        recent_meetings = self.past()[:10]
+        guys = Participant.objects.filter(meeting__in=recent_meetings)
+        return guys.values_list('name', flat=True).annotate(
+            num=Count('name')).order_by('-num')
+
 
 class Meeting(models.Model):
     name = models.CharField(max_length=50)
@@ -38,20 +44,10 @@ class Meeting(models.Model):
         ordering = ('date',)
 
 
-class ParticipanManager(models.Manager):
-    def coming_often_recently(self):
-        recent_meetings = Meeting.objects.past()[:10]
-        guys = self.get_query_set().filter(meeting__in=recent_meetings)
-        return guys.values_list('name', flat=True).annotate(
-            num=Count('name')).order_by('-num')
-
-
 class Participant(models.Model):
     name = models.CharField(max_length=50)
     notes = models.TextField(blank=True)
     meeting = models.ForeignKey(Meeting, related_name='participants')
-
-    objects = ParticipanManager()
 
     def __unicode__(self):
         return self.name
