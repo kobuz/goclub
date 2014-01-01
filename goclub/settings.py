@@ -159,4 +159,6 @@ LOGGING = {
     }
 }
 
+GRAPPELLI_ADMIN_TITLE = 'Krakowski Klub Go'
+
 from local_settings import *
