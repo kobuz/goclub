@@ -1,0 +1,10 @@
+<h3>Najbliższe spotkania:</h3>
+<ul>
+{% for meeting in upcoming_meetings %}
+    <li>
+        {{ meeting.place }} - {{ meeting.date }}<br/>
+        {{ meeting.participants.count }} uczestników<br/>
+        <a href="{% url 'meeting_detail' slug=meeting.slug %}">Zobacz</a> kto się wybiera.
+    </li>
+{% endfor %}
+</ul>

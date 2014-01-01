@@ -2,12 +2,14 @@
 from django.db import models
 from django.db.models import Count
 from django.utils import timezone
+from django.utils.text import slugify
 
 
 class Place(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     address = models.CharField(max_length=100)
+    url = models.URLField(blank=True)
 
     def __unicode__(self):
         return self.name
@@ -31,6 +33,7 @@ class MeetingManager(models.Manager):
 
 class Meeting(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True)
     notes = models.TextField(blank=True)
     place = models.ForeignKey(Place)
     date = models.DateField()
@@ -38,10 +41,16 @@ class Meeting(models.Model):
     objects = MeetingManager()
 
     def __unicode__(self):
-        return "{0.name} / {0.place} / {0.date}".format(self)
+        return "{0.place} {0.date}".format(self)
 
     class Meta:
         ordering = ('date',)
+
+    def save(self, *args, **kwargs):
+        # set slug for a meeting
+        if not self.slug:
+            self.slug = slugify(u'{} {}'.format(self.place, self.date))
+        super(Meeting, self).save(*args, **kwargs)
 
 
 class Participant(models.Model):

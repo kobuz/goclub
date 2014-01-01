@@ -18,6 +18,7 @@ class ParticipantAdmin(admin.StackedInline):
 class MeetingAdmin(admin.ModelAdmin):
     list_display = ('name', 'place', 'date',)
     list_filter = ('place',)
+    readonly_fields = ('slug',)
     inlines = [ParticipantAdmin]
 
 admin.site.register(Meeting, MeetingAdmin)

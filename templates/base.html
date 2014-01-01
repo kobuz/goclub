@@ -23,7 +23,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{% url 'home' %}">Go</a></li>
                         <li><a href="{% url 'about' %}">O klubie</a></li>
-                        <li><a href="#">Spotkania</a></li>
+                        <li><a href="{% url 'meetings' %}">Spotkania</a></li>
                         <li><a href="{% url 'members' %}">Klubowicze</a>
                         <li><a href="#">Kontakt</a>
                         </li>
@@ -39,10 +39,7 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-3">
-                <h3>Najbliższe spotkania:</h3>
-                <ul>
-                    <li>Artefakt</li>
-                </ul>
+                {% include "upcoming_events.html" %}
             </div>
         </div>
     </div>

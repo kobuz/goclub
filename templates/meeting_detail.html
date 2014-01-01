@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ meeting }}</h1>
+
+<h2>Miejsce</h2>
+<p>
+{{ meeting.place }}<br/>
+{{ meeting.place.address }}<br/>
+{{ meeting.place.url }}<br/>
+{{ meeting.place.description }}
+</p>
+
+<h3>Uczestnicy:</h3>
+<ul>
+{% for dude in meeting.participants.all %}
+    <li>{{ dude.name }}{% if dude.notes %}, uwagi: &quot;{{ dude.notes }}&quot;{% endif %}</li>
+{% empty %}
+    <li>Na razie brak.</li>
+{% endfor %}
+</ul>
+
+{% endblock content %}
