@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Lista członków:</h1>
+    <table class="table">
+    <thead><tr><th>Imię i nazwisko</th><th>Siła</th><th>Nick na KGS</th><th>EGD</th></tr></thead>
+    {% for member in members %}
+    <tr>
+        <td>{{ member.first_name }} {{ member.last_name }}</td>
+        <td>{{ member.rank }}</td>
+        <td>{{ member.kgs_nickname }}</td>
+        <td>{% if member.egd_id %}<a href="http://www.europeangodatabase.eu/EGD/Player_Card.php?&key={{ member.egd_id }}">EGD</a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock content %}
