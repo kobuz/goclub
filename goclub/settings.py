@@ -1,7 +1,14 @@
 # Django settings for goclub project.
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+import os
+import environ
+
+root = environ.Path(__file__) - 3
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env('.env')
+
+DEBUG = env('DEBUG')
+TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -10,19 +17,10 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
+    'default': env.db(),
 }
 
-import os
-PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..')
+PROJECT_ROOT = root()
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -84,7 +82,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '6c4*w&lpbog*#otjpji=nt(y!#rckc!g7h3cd&=rz_$mp5q&)6'
+SECRET_KEY = env('SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -172,5 +170,3 @@ LOGGING = {
 }
 
 GRAPPELLI_ADMIN_TITLE = 'Krakowski Klub Go'
-
-from local_settings import *
