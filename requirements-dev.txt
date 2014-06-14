@@ -1,0 +1,5 @@
+-r requirements.txt
+ipdb==0.8
+ipython==2.1.0
+mock==1.0.1
+model-mommy==1.2.1
