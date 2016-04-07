@@ -1,0 +1,16 @@
+sudo: false
+language: python
+cache: pip
+python: "3.5"
+services:
+  - postgresl
+env:
+  global:
+    - DATABASE_URL=psql://postgres:postgres@localhost/travis_ci_test
+    - SECRET_KEY=abc
+install:
+  - pip install -r requirements.txt
+before_script:
+  - psql -c 'create database go;' -U postgres
+script:
+  - python manage.py test
