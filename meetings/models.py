@@ -10,7 +10,7 @@ class Place(models.Model):
     address = models.CharField(max_length=100)
     url = models.URLField(blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -39,7 +39,7 @@ class Meeting(models.Model):
 
     objects = MeetingManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return "{0.place} {0.date}".format(self)
 
     class Meta:
@@ -48,7 +48,7 @@ class Meeting(models.Model):
     def save(self, *args, **kwargs):
         # set slug for a meeting
         if not self.slug:
-            self.slug = slugify(u'{} {}'.format(self.place, self.date))
+            self.slug = slugify('{} {}'.format(self.place, self.date))
         super(Meeting, self).save(*args, **kwargs)
 
 
@@ -57,5 +57,5 @@ class Participant(models.Model):
     notes = models.TextField(blank=True)
     meeting = models.ForeignKey(Meeting, related_name='participants')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

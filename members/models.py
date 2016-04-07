@@ -12,8 +12,8 @@ class Member(models.Model):
     egd_id = models.CharField(max_length=8, blank=True)
     kgs_nickname = models.CharField(max_length=10, blank=True)
 
-    def __unicode__(self):
-        return u"{0.first_name} {0.last_name}".format(self)
+    def __str__(self):
+        return "{0.first_name} {0.last_name}".format(self)
 
     class Meta:
         ordering = ('gor', 'last_name',)
