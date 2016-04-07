@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:9.4
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    environment:
+      DEBUG: "True"
+      SECRET_KEY: "aaa"
+      DATABASE_URL: "postgres://postgres:postgres@postgres/postgres"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
