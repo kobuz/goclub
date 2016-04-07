@@ -23,12 +23,6 @@ class MeetingManager(models.Manager):
         today = timezone.now().date()
         return self.get_queryset().filter(date__gte=today).order_by('date')
 
-    def recent_players(self):
-        recent_meetings = self.past()[:10]
-        guys = Participant.objects.filter(meeting__in=recent_meetings)
-        return guys.values_list('name', flat=True).annotate(
-            num=Count('name')).order_by('-num')
-
 
 class Meeting(models.Model):
     name = models.CharField(max_length=50)

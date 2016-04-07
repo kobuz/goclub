@@ -36,8 +36,3 @@ class ParticipantTest(TestCase):
             mommy.make(Participant, name=nick, meeting=meeting2)
         for nick in ['wilk', 'ptak', 'drzewo']:
             mommy.make(Participant, name=nick, meeting=meeting3)
-
-    def test_coming_often_recently(self):
-        names = Meeting.objects.recent_players()
-        self.assertEqual(len(names), 4)
-        self.assertEqual(list(names), ['wilk', 'ptak', 'drzewo', 'koza'])

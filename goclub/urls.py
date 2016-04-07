@@ -13,14 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from django.contrib import admin
 
 from members.views import MemberList
 from meetings.views import MeetingDetail
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
@@ -34,4 +34,4 @@ urlpatterns = patterns('',
     url(r'^czlonkowie$', MemberList.as_view(), name='members'),
     url(r'^kontakt$', TemplateView.as_view(template_name='contact.html'),
         name='contact'),
-)
+]
