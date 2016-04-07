@@ -18,11 +18,11 @@ class Place(models.Model):
 class MeetingManager(models.Manager):
     def past(self):
         today = timezone.now().date()
-        return self.get_query_set().filter(date__lt=today).order_by('-date')
+        return self.get_queryset().filter(date__lt=today).order_by('-date')
 
     def upcoming(self):
         today = timezone.now().date()
-        return self.get_query_set().filter(date__gte=today).order_by('date')
+        return self.get_queryset().filter(date__gte=today).order_by('date')
 
     def recent_players(self):
         recent_meetings = self.past()[:10]
