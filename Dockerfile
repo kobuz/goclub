@@ -5,6 +5,6 @@ WORKDIR /app
 COPY requirements.txt requirements-dev.txt /app/
 RUN pip install -r requirements-dev.txt
 
-COPY . /app
+COPY goclub /app
 
 EXPOSE 8000

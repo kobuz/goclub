@@ -1,1 +1,1 @@
-web: gunicorn goclub.wsgi
+web: gunicorn goclub.goclub.wsgi
