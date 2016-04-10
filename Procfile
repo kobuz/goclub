@@ -1,1 +1,1 @@
-web: gunicorn goclub.goclub.wsgi
+web: gunicorn --chdir goclub goclub.wsgi
