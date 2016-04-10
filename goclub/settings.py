@@ -10,16 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import os
+import pathlib
 
-from django.conf import global_settings
 import environ
 
-root = environ.Path(__file__) - 2
+BASE_DIR = pathlib.Path(__file__).parent.parent
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env('.env')
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = root()
 
 
 # Quick-start development settings - unsuitable for production
@@ -67,7 +64,7 @@ ROOT_URLCONF = 'goclub.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [str(BASE_DIR / 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,8 +132,8 @@ STATIC_URL = '/static/'
 
 # for Heroku deploy
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    str(BASE_DIR / 'static'),
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
