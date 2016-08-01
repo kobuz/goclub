@@ -1,10 +1,10 @@
 from django.db import models
-from django.db.models import Count
 from django.utils import timezone
 from django.utils.text import slugify
 
 
 class Place(models.Model):
+
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     address = models.CharField(max_length=100)
@@ -25,6 +25,7 @@ class MeetingManager(models.Manager):
 
 
 class Meeting(models.Model):
+
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
     notes = models.TextField(blank=True)
@@ -47,6 +48,7 @@ class Meeting(models.Model):
 
 
 class Participant(models.Model):
+
     name = models.CharField(max_length=50)
     notes = models.TextField(blank=True)
     meeting = models.ForeignKey(Meeting, related_name='participants')

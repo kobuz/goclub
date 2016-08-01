@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.views.generic import TemplateView
 from django.contrib import admin
+from django.contrib.flatpages import views as flat_views
 
 from members.views import MemberList
 from meetings.views import MeetingDetail
@@ -24,14 +24,14 @@ urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
-    url(r'^klub/$', TemplateView.as_view(template_name='about.html'),
+    url(r'^$', flat_views.flatpage, {'url': '/'}, name='home'),
+    url(r'^klub/$', flat_views.flatpage, {'url': '/klub/'},
         name='about'),
-    url(r'^spotkania/$', TemplateView.as_view(template_name='meetings.html'),
+    url(r'^spotkania/$', flat_views.flatpage, {'url': '/spotkania/'},
         name='meetings'),
     url(r'^spotkania/(?P<slug>.*)/$', MeetingDetail.as_view(),
         name='meeting_detail'),
     url(r'^czlonkowie/$', MemberList.as_view(), name='members'),
-    url(r'^kontakt/$', TemplateView.as_view(template_name='contact.html'),
+    url(r'^kontakt/$', flat_views.flatpage, {'url': '/kontakt/'},
         name='contact'),
 ]
